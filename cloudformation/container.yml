@@ -85,12 +85,13 @@ Resources:
       Name: prod
       Version: '1.14'
       RoleArn: 
-        - Ref: EksClusterRole 
+        - !GetAtt EksClusterRole.Arn
       ResourcesVpcConfig:
         SecurityGroupIds:
           - Ref: WebServerSecGroup
         SubnetIds:
-          Fn::ImportValue: !Sub "${EnvironmentName}-PRIV-NETS"
+          - Fn::ImportValue: !Sub "${EnvironmentName}-PRI1-SN"
+          - Fn::ImportValue: !Sub "${EnvironmentName}-PRI2-SN"
   Bastion:
     Type: AWS::EC2::Instance
     Properties:
