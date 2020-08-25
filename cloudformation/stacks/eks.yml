@@ -51,6 +51,38 @@ Resources:
         SubnetIds:
           - Fn::ImportValue: UdacityCapstone-PUB1-SN
       RoleArn: !Ref EKSRole
+
+  EKSNodeGroupRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+        - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+
+  EKSNodeGroup:
+    Type: AWS::EKS::Nodegroup
+    Properties: 
+      AmiType: AL2_x86_64
+      ClusterName: !Ref EKSCluster
+      ForceUpdateEnabled: true
+      InstanceTypes: 
+        - t3.small
+      NodegroupName: !Sub ${EnvironmentName}-group
+      NodeRole: !Ref EKSNodeGroupRole
+      RemoteAccess:
+        Ec2SshKey: udacity
+      Subnets: 
+        - Fn::ImportValue: UdacityCapstone-PUB1-SN
       
 Outputs:
   EKSClusterName:
