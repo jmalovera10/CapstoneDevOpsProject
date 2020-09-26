@@ -6,7 +6,7 @@ This project deploys a simple node server into a Kubernetes cluster using the AW
 
 The underlying architecture of the project is represented by the following diagram:
 
-![Project Architecture](Dragster.jpg)
+![Project Architecture](architecture.png)
 
 ## Installation
 

@@ -86,6 +86,8 @@ Resources:
               /etc/apt/sources.list.d/jenkins.list'
           apt-get update -y
           apt-get install jenkins -y
+          apt install nodejs -y
+          apt install npm -y
 
 Outputs:
   BastionInstance:
