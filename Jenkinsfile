@@ -1,5 +1,10 @@
 pipeline {
-  agent { docker { image 'node:12' } }
+  agent {
+    docker {
+      image 'node:12'
+    }
+
+  }
   stages {
     stage('Linting') {
       steps {
@@ -10,5 +15,13 @@ pipeline {
         '''
       }
     }
+
+    stage('Build Image') {
+      steps {
+        sh '''cd capstone_app
+docker build -t jmalovera10/devopscapstone:v1 .'''
+      }
+    }
+
   }
 }
