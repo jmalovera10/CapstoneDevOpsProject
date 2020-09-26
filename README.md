@@ -39,6 +39,10 @@ $ kubectl create -f ./service.yml
 $ kubectl describe svc node
 ```
 
+### Important
+
+Be sure that you use the same credentials to deploy the infrastructure and in the Jenkins credentials configurations. If they are not the same, you will have problems deploying the EKS Cluster with kubectl.
+
 ### Cleanup
 
 To make cleanup of the application and infrastructure you need to run first:
