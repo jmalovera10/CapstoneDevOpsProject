@@ -2,7 +2,7 @@ FROM node:12
 
 WORKDIR /usr/src/app
 
-COPY ./capstone .
+COPY . .
 
 RUN npm install
 RUN npm audit fix
