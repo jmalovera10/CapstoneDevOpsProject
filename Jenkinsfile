@@ -29,18 +29,18 @@ pipeline {
         }
       }
     }
-    stage('Deploy container') {
-      withAWS(region:"us-east-1", credentials:"aws-credentials"){
-        steps{
-          sh '''
-          cd capstone_app
-          aws eks --region us-east-1 update-kubeconfig --name capstone-cluster
-          kubectl get svc
-          kubectl apply -f ./deployment.yml
-          kubectl rollout status deployments/node-deployment
-          '''
-        }
-      }
-    }
+    // stage('Deploy container') {
+    //   withAWS(region:"us-east-1", credentials:"aws-credentials"){
+    //     steps{
+    //       sh '''
+    //       cd capstone_app
+    //       aws eks --region us-east-1 update-kubeconfig --name capstone-cluster
+    //       kubectl get svc
+    //       kubectl apply -f ./deployment.yml
+    //       kubectl rollout status deployments/node-deployment
+    //       '''
+    //     }
+    //   }
+    // }
   }
 }
