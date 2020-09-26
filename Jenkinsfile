@@ -36,19 +36,20 @@ pipeline {
 
       }
     }
-    // stage('Deploy container') {
-    //   withAWS(region:"us-east-1", credentials:"aws-credentials"){
-    //     steps{
-    //       sh '''
-    //       cd capstone_app
-    //       aws eks --region us-east-1 update-kubeconfig --name capstone-cluster
-    //       kubectl get svc
-    //       kubectl apply -f ./deployment.yml
-    //       kubectl rollout status deployments/node-deployment
-    //       '''
-    //     }
-    //   }
-    // }
+    stage('Deploy container') {
+      withAWS(region:"us-east-1", credentials:"aws-credentials"){
+        steps{
+          sh '''
+          cd capstone_app
+          aws eks --region us-east-1 update-kubeconfig --name capstone-cluster
+          sed -i "s/latest/$BUILD_NUMBER" deployment.yml
+          kubectl get svc
+          kubectl apply -f ./deployment.yml
+          kubectl rollout status deployments/node-deployment
+          '''
+        }
+      }
+    }
     stage('Cleaning up') {            
       steps { 
         sh "docker rmi $registry:$BUILD_NUMBER" 
