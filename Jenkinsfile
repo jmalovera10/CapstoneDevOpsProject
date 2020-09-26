@@ -1,8 +1,8 @@
 pipeline {
-  environment{
+  environment {
     registry = 'jmalovera10/devopscapstone'
     registryCredential = 'dockerhub'
-    dockerImage = '' 
+    dockerImage = ''
   }
   agent any
   stages {
@@ -18,24 +18,25 @@ pipeline {
 
     stage('Build Image') {
       steps {
+        script {
+          cd capstone_app
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        }
+
+      }
+    }
+
+    stage('Deploy image') {
+      steps {
         sh '''
           cd capstone_app
         '''
-        script{
-          dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-        }
-      }
-    }
-    stage('Deploy image') {
-      steps {
-         sh '''
-          cd capstone_app
-        '''    
-        script { 
-          docker.withRegistry( '', registryCredential ) { 
-            dockerImage.push() 
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
           }
-        } 
+        }
+
       }
     }
     // stage('Deploy container') {
@@ -56,5 +57,7 @@ pipeline {
         sh "docker rmi $registry:$BUILD_NUMBER" 
       }
     } 
+
   }
+  
 }
