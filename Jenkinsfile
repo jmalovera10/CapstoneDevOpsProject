@@ -42,9 +42,8 @@ pipeline {
           sh '''
           cd capstone_app
           aws eks --region us-east-1 update-kubeconfig --name capstone-cluster
-          aws s3 ls
           sed -i "s/latest/$BUILD_NUMBER/" deployment.yml
-          # kubectl get svc
+          kubectl get svc
           kubectl apply -f ./deployment.yml
           kubectl rollout status deployments/node-deployment
           kubectl describe svc node
@@ -52,11 +51,10 @@ pipeline {
         }
       }
     }
-    stage('Cleaning up') {            
-      steps { 
+    post {
+      always{
         sh "docker rmi $registry:$BUILD_NUMBER" 
       }
-    } 
-
+    }
   }
 }
