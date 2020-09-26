@@ -43,7 +43,7 @@ To make cleanup of the application and infrastructure you need to run first:
 ```shell
 $ cd capstone_app
 $ kubectl delete -f ./deployment.yml
-$ kubectl svc node
+$ kubectl delete svc node
 ```
 
 Then you need to delete the infrastructure using the following command:
