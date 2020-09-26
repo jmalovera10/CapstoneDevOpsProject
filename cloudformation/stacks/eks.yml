@@ -50,7 +50,8 @@ Resources:
           - !Ref SecurityGroup
         SubnetIds:
           - Fn::ImportValue: UdacityCapstone-PUB1-SN
-      RoleArn: !Ref EKSRole
+          - Fn::ImportValue: UdacityCapstone-PUB2-SN
+      RoleArn: !GetAtt EKSRole.Arn
 
   EKSNodeGroupRole:
     Type: "AWS::IAM::Role"
@@ -78,7 +79,7 @@ Resources:
       InstanceTypes: 
         - t3.small
       NodegroupName: !Sub ${EnvironmentName}-group
-      NodeRole: !Ref EKSNodeGroupRole
+      NodeRole: !GetAtt EKSNodeGroupRole.Arn
       RemoteAccess:
         Ec2SshKey: udacity
       Subnets: 
