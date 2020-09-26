@@ -19,7 +19,6 @@ pipeline {
       steps {
         sh '''
           cd capstone_app
-          chmod 666 /var/run/docker.sock
           docker build -t $registry:$BUILD_NUMBER .
         '''
       }
