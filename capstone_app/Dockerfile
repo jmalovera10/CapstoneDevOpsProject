@@ -8,4 +8,4 @@ RUN npm install
 RUN npm audit fix
 
 EXPOSE 80
-CMD [ "node", "app.js" ]
+CMD [ "npm", "start" ]

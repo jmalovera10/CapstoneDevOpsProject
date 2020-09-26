@@ -13,7 +13,7 @@ spec:
         app: node
     spec:
       containers:
-        - name: jmalovera10/devopscapstone
+        - name: jmalovera10-devopscapstone
           image: jmalovera10/devopscapstone:latest
           ports:
             - containerPort: 80
