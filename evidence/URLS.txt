@@ -1,6 +1,5 @@
-# URL1 Image Repository Docker Hub
+# URL1 GitHub Repository
+https://github.com/jmalovera10/CapstoneDevOpsProject
+
+# URL2 Image Repository Docker Hub
 https://hub.docker.com/repository/docker/jmalovera10/devopscapstone
-
-# URL2 Deployed Application Endpoint
-
-
