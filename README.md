@@ -34,6 +34,9 @@ $ aws eks update-kubeconfig --name capstone-cluster
 # deploy the service
 $ kubectl create -f ./deployment.yml
 $ kubectl create -f ./service.yml
+
+# check service status and url
+$ kubectl describe svc node
 ```
 
 ### Cleanup
