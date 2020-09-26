@@ -19,7 +19,8 @@ pipeline {
       steps {
         sh '''
           cd capstone_app
-          sudo docker build -t $registry:$BUILD_NUMBER .
+          chmod 666 /var/run/docker.sock
+          docker build -t $registry:$BUILD_NUMBER .
         '''
       }
     }
@@ -29,8 +30,8 @@ pipeline {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){     
           sh '''
           cd capstone_app
-          sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          sudo docker push $registry:$BUILD_NUMBER
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker push $registry:$BUILD_NUMBER
           '''    
         }
 
