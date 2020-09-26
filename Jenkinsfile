@@ -10,14 +10,6 @@ pipeline {
         '''
       }
     }
-    stage('Analyze') {
-      steps {
-        sh '''
-          cd capstone_app
-          npm audit fix
-        '''
-      }
-    }
     stage('Setup image') {
       steps {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){     
@@ -28,11 +20,16 @@ pipeline {
           '''    
         }
       }
-    }stage('set current kubectl context') {
-
     }stage('Deploy container') {
-
+      steps{
+        sh '''
+        cd capstone_app
+        aws eks --region us-east-1 update-kubeconfig --name capstone-cluster
+        kubectl get svc
+        kubectl apply -f ./deployment.yml
+        kubectl rollout status deployments/node-deployment
+        '''
+      }
     }
-
   }
 }

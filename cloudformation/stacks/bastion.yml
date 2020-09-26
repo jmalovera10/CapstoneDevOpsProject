@@ -99,8 +99,6 @@ Resources:
           mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
           echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
           kubectl version --short --client
-          aws eks --region us-east-1 update-kubeconfig --name capstone-cluster
-          kubectl get svc
 
 Outputs:
   BastionInstance:
