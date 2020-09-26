@@ -7,6 +7,11 @@ spec:
     matchLabels:
       app: node
   replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -14,6 +19,8 @@ spec:
     spec:
       containers:
         - name: jmalovera10-devopscapstone
-          image: jmalovera10/devopscapstone:latest
+          imagePullPolicy: Always
+          image: nginx:1.19.2
           ports:
             - containerPort: 80
+              protocol: TCP
