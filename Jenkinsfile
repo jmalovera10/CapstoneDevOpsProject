@@ -42,7 +42,7 @@ pipeline {
           sh '''
           cd capstone_app
           aws eks --region us-east-1 update-kubeconfig --name capstone-cluster
-          sed -i "s/latest/$BUILD_NUMBER" deployment.yml
+          sed -i "s/latest/$BUILD_NUMBER/" deployment.yml
           kubectl get svc
           kubectl apply -f ./deployment.yml
           kubectl rollout status deployments/node-deployment

@@ -113,6 +113,10 @@ Resources:
           echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
           kubectl version --short --client
 
+          # Install AWS Cli
+          apt-get update
+          apt-get install awscli
+
 Outputs:
   BastionInstance:
     Description: The instance id
