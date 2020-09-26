@@ -66,6 +66,7 @@ First, you need to login with the Jenkins default password. Then go to settings 
 
 - Blue Ocean
 - AWS Steps
+- Docker Pipelines
 
 The method used in this proyect for deployment is rollback.
 

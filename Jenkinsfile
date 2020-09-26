@@ -1,4 +1,9 @@
 pipeline {
+  environment{
+    registry = 'jmalovera10/devopscapstone'
+    registryCredential = 'dockerhub'
+    dockerImage = '' 
+  }
   agent any
   stages {
     stage('Linting') {
@@ -15,18 +20,22 @@ pipeline {
       steps {
         sh '''
           cd capstone_app
-          docker build -t jmalovera10/devopscapstone:v1 .
         '''
+        script{
+          dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+        }
       }
     }
     stage('Deploy image') {
       steps {
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){     
-          sh '''
+         sh '''
           cd capstone_app
-          docker push jmalovera10/devopscapstone:v1
-          '''    
-        }
+        '''    
+        script { 
+          docker.withRegistry( '', registryCredential ) { 
+            dockerImage.push() 
+          }
+        } 
       }
     }
     // stage('Deploy container') {
