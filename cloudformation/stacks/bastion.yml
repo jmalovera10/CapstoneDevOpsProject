@@ -97,8 +97,14 @@ Resources:
           apt-get install jenkins -y
 
           # Install Nodejs
+          apt update
+          apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
+          curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
           apt install nodejs -y
-          apt install npm -y
+
+          # Install Docker
+          apt install docker.io -y
+          chmod 666 /var/run/docker.sock
 
           # Install Kubectl
           curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.9/2020-08-04/bin/linux/amd64/kubectl

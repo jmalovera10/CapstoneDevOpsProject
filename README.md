@@ -66,3 +66,9 @@ First, you need to login with the Jenkins default password. Then go to settings 
 
 - Blue Ocean
 - AWS Steps
+
+The method used in this proyect for deployment is rollback.
+
+## Evidence
+
+The screenshots and urls that support this project are located at the <strong>evidence</strong> folder.
