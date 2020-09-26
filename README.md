@@ -24,6 +24,42 @@ $ ./cloudformation/create_environment.bat
 $ ./cloudformation/create_environment.sh
 ```
 
+Once the infrastructure is deployed, you need to install <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">kubectl</a> and deploy the application using the following commands:
+
+```shell
+$ cd capstone_app
+# configure kubectl
+$ aws eks update-kubeconfig --name capstone-cluster
+
+# deploy the service
+$ kubectl create -f ./deployment.yml
+$ kubectl create -f ./service.yml
+```
+
+### Cleanup
+
+To make cleanup of the application and infrastructure you need to run first:
+
+```shell
+$ cd capstone_app
+$ kubectl delete -f ./deployment.yml
+$ kubectl svc node
+```
+
+Then you need to delete the infrastructure using the following command:
+
+#### Windows
+
+```shell
+$ ./cloudformation/delete_environment.bat
+```
+
+#### Linux
+
+```shell
+$ ./cloudformation/delete_environment.sh
+```
+
 ## Jenkins
 
 ### Plugins
