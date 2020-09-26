@@ -20,7 +20,7 @@ spec:
       containers:
         - name: jmalovera10-devopscapstone
           imagePullPolicy: Always
-          image: nginx:1.19.2
+          image: jmalovera10/devopscapstone:latest
           ports:
             - containerPort: 80
               protocol: TCP
