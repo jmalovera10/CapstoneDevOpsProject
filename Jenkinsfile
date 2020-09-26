@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'node:12'
-    }
-
-  }
+  agent any
   stages {
     stage('Linting') {
       steps {
