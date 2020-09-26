@@ -63,7 +63,7 @@ Resources:
     Properties:
       ImageId: ami-0bcc094591f354be2
       KeyName: udacity
-      InstanceType: t2.micro
+      InstanceType: t2.small
       IamInstanceProfile: !Ref "ProfileWithRolesForOurApp"
       NetworkInterfaces:
         - AssociatePublicIpAddress: "true"
@@ -84,7 +84,7 @@ Resources:
           Value: udacity-bastion
       UserData:
         Fn::Base64: !Sub |
-          #!/bin/bash
+          #!/bin/bash -xe
           sudo su
           apt-get update -y
 

@@ -1,0 +1,4 @@
+# URL1 Image Repository Docker Hub
+https://hub.docker.com/repository/docker/jmalovera10/devopscapstone
+
+# URL2 Deployed Application Endpoint

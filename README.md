@@ -68,6 +68,8 @@ First, you need to login with the Jenkins default password. Then go to settings 
 - AWS Steps
 - Docker Pipelines
 
+Then you need to setup AWS Credentials and DockerHub credentials. To trigger the workflow with pushes to the branch you should configure a <a href="https://www.blazemeter.com/blog/how-to-integrate-your-github-repository-to-your-jenkins-project">webhook</a>.
+
 The method used in this proyect for deployment is rollback.
 
 ## Evidence
