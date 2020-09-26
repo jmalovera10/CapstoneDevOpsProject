@@ -5,7 +5,7 @@ Parameters:
   EnvironmentName:
     Description: An environment name that will be prefixed to resource names
     Type: String
-    Default: UdacityCapstone
+    Default: capstone
 
 Resources:
   SecurityGroup:
@@ -24,7 +24,7 @@ Resources:
           ToPort: 80
           CidrIp: 0.0.0.0/0
       VpcId:
-        Fn::ImportValue: UdacityCapstone-VPCID
+        Fn::ImportValue: capstone-VPCID
 
   EKSRole:
     Type: "AWS::IAM::Role"
@@ -49,8 +49,8 @@ Resources:
         SecurityGroupIds:
           - !Ref SecurityGroup
         SubnetIds:
-          - Fn::ImportValue: UdacityCapstone-PUB1-SN
-          - Fn::ImportValue: UdacityCapstone-PUB2-SN
+          - Fn::ImportValue: capstone-PUB1-SN
+          - Fn::ImportValue: capstone-PUB2-SN
       RoleArn: !GetAtt EKSRole.Arn
 
   EKSNodeGroupRole:
@@ -83,7 +83,7 @@ Resources:
       RemoteAccess:
         Ec2SshKey: udacity
       Subnets: 
-        - Fn::ImportValue: UdacityCapstone-PUB1-SN
+        - Fn::ImportValue: capstone-PUB1-SN
       
 Outputs:
   EKSClusterName:

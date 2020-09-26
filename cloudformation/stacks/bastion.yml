@@ -5,7 +5,7 @@ Parameters:
   EnvironmentName:
     Description: An environment name that will be prefixed to resource names
     Type: String
-    Default: UdacityCapstone
+    Default: capstone
 
 Resources:
   ServerRole:
@@ -80,14 +80,27 @@ Resources:
           #!/bin/bash
           sudo su
           apt-get update -y
+
+          # Install Jenkins
           apt install openjdk-8-jdk -y
           wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
           sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
               /etc/apt/sources.list.d/jenkins.list'
           apt-get update -y
           apt-get install jenkins -y
+
+          # Install Nodejs
           apt install nodejs -y
           apt install npm -y
+
+          # Install Kubectl
+          curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.9/2020-08-04/bin/linux/amd64/kubectl
+          chmod +x ./kubectl
+          mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+          echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
+          kubectl version --short --client
+          aws eks --region us-east-1 update-kubeconfig --name capstone-cluster
+          kubectl get svc
 
 Outputs:
   BastionInstance:
