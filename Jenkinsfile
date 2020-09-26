@@ -2,7 +2,6 @@ pipeline {
   environment {
     registry = 'jmalovera10/devopscapstone'
     registryCredential = 'dockerhub'
-    dockerImage = ''
   }
   agent any
   stages {
@@ -18,23 +17,21 @@ pipeline {
 
     stage('Build Image') {
       steps {
-        script {
+        sh '''
           cd capstone_app
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
-        }
-
+          docker build -t $registry:$BUILD_NUMBER .
+        '''
       }
     }
 
     stage('Deploy image') {
       steps {
-        sh '''
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){     
+          sh '''
           cd capstone_app
-        '''
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
-          }
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker push $registry:$BUILD_NUMBER
+          '''    
         }
 
       }
@@ -59,5 +56,4 @@ pipeline {
     } 
 
   }
-  
 }
