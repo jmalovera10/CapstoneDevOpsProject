@@ -62,4 +62,7 @@ $ ./cloudformation/delete_environment.sh
 
 ## Jenkins
 
-### Plugins
+First, you need to login with the Jenkins default password. Then go to settings > manage plugins and install the following plugins:
+
+- Blue Ocean
+- AWS Steps
